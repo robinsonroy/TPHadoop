@@ -6,8 +6,8 @@
 
 
     <groupId>robinson</groupId>
-    <artifactId>robinson</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>tp2</artifactId>
+    <version>0.1.0</version>
 
     <dependencies>
         <dependency>
