@@ -8,11 +8,11 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*;
 
-public class MR1 {
+public class MR2 {
 
     public static class Map extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
-        private Text origin = new Text();
+        private Text nbOfOrigin = new Text();
 
         public void map(LongWritable key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
 
@@ -20,12 +20,8 @@ public class MR1 {
             if (items.length >= 3)
                 items = items[2].split(", ?");
 
-            for(int i = 0; i<items.length; i++){
-
-                origin.set(items[i]);
-                output.collect(origin, one);
-
-            }
+            nbOfOrigin.set(Integer.toString(items.length));
+            output.collect(nbOfOrigin, one);
         }
     }
 
@@ -41,14 +37,14 @@ public class MR1 {
     }
 
     public static void main(String[] args) throws Exception {
-        JobConf conf = new JobConf(MR1.class);
-        conf.setJobName("count name by origin");
+        JobConf conf = new JobConf(MR2.class);
+        conf.setJobName("Count number of first name by number of origin");
 
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(IntWritable.class);
 
         conf.setMapperClass(Map.class);
-        //conf.setCombinerClass(Reduce.class);
+        conf.setCombinerClass(Reduce.class);
         conf.setReducerClass(Reduce.class);
 
         conf.setInputFormat(TextInputFormat.class);
