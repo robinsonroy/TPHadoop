@@ -38,7 +38,7 @@ public class MR2 {
 
     public static void main(String[] args) throws Exception {
         JobConf conf = new JobConf(MR2.class);
-        conf.setJobName("Count number of first name by number of origin");
+        conf.setJobName("CountNumberOfFirstNameByNumberOfOrigin");
 
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(IntWritable.class);

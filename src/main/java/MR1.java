@@ -42,7 +42,7 @@ public class MR1 {
 
     public static void main(String[] args) throws Exception {
         JobConf conf = new JobConf(MR1.class);
-        conf.setJobName("count name by origin");
+        conf.setJobName("CountNameByOrigin");
 
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(IntWritable.class);

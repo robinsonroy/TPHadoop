@@ -40,18 +40,18 @@ public class MR3 {
         }
     }
 
-    public static class Reduce extends MapReduceBase implements Reducer<Text, ArrayWritable, Text, FloatWritable> {
+    public static class Reduce extends MapReduceBase implements Reducer<Text, IntArrayWritable, Text, FloatWritable> {
 
-        public void reduce(Text key, Iterator<ArrayWritable> values, OutputCollector<Text, FloatWritable> output, Reporter reporter) throws IOException {
+        public void reduce(Text key, Iterator<IntArrayWritable> values, OutputCollector<Text, FloatWritable> output, Reporter reporter) throws IOException {
             float sum;
-            int sum1 = 0;
-            int sum2 = 0;
+            float sum1 = 0;
+            float sum2 = 0;
 
             while (values.hasNext()) {
                 IntWritable val1 = (IntWritable) values.next().get()[0];
                 IntWritable val2 = (IntWritable) values.next().get()[1];
-                sum1 += val1.get();
-                sum2 += val2.get();
+                sum1 += (float)val1.get();
+                sum2 += (float)val2.get();
             }
 
             sum = sum1*100/sum2;
@@ -62,7 +62,7 @@ public class MR3 {
 
     public static void main(String[] args) throws Exception {
         JobConf conf = new JobConf(MR3.class);
-        conf.setJobName("Proportion (in%) of male or female");
+        conf.setJobName("ProportionOfMaleOrFemale");
 
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(FloatWritable.class);
@@ -70,7 +70,6 @@ public class MR3 {
 
 
         conf.setMapperClass(Map.class);
-        //conf.setCombinerClass(Reduce.class);
         conf.setReducerClass(Reduce.class);
 
         conf.setInputFormat(TextInputFormat.class);

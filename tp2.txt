@@ -1,0 +1,10 @@
+GIT : https://github.com/robinsonroy/TPHadoop.git
+
+Foreach M/R : Can we use Combiner? Why? (4pts)
+
+Combiner execute a fonction with the same signature as the reducer on 1 mapper to earn times.
+
+So for the first two M/R, the input (Key, IntWritable) of the reducer is the same as his output. So we can easily use the combiner. The output of the combiner will be the input of the reducer.
+
+For the 3 M/R, the input of the reducer (Key, IntArrayWritalbe) is different from his output (Key, FloatWritable). So the reducer can not take in input the ouput of the combiner.
+That why we didn't use the combiner in the MapReducer 3.
